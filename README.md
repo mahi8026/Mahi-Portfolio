@@ -50,35 +50,7 @@ A modern, responsive portfolio website built with Next.js, showcasing my skills 
 - Node.js 18+
 - npm or yarn
 
-### Installation
 
-1. Clone the repository
-
-```bash
-git clone <repository-url>
-cd portfolio-website
-```
-
-2. Install dependencies
-
-```bash
-npm install
-```
-
-3. Run the development server
-
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Build for Production
-
-```bash
-npm run build
-npm start
-```
 
 ## 📧 Contact Configuration
 
@@ -88,13 +60,7 @@ To use the contact form, configure EmailJS:
 2. Update the configuration in `src/config/emailjs.js`
 3. Replace the service ID, template ID, and public key with your own
 
-## 🌐 Deployment
 
-This project is optimized for deployment on Vercel:
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy with one click
 
 ## 📄 License
 
@@ -105,8 +71,8 @@ This project is open source and available under the [MIT License](LICENSE).
 **Mahi** - Full-Stack Developer
 
 - GitHub: [@mahi8026](https://github.com/mahi8026)
-- LinkedIn: [mahi-dev](https://linkedin.com/in/mahi-dev)
-- Email: mahi.dev.bd@gmail.com
+- LinkedIn: [mahimrahman-dev](https://linkedin.com/in/mahi-dev)
+- Email: mahimrahman07@gmail.com
 
 ---
 
