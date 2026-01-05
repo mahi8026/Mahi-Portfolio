@@ -37,6 +37,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <title>Mahi.Dev - Full Stack Developer Portfolio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body
         className={`${inter.className} bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300`}
       >
