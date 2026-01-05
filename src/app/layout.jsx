@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Mahi.Dev - Full Stack Developer Portfolio",
   description:
-    "Full-Stack Developer specializing in React, Node.js, and modern web technologies. Building accessible, pixel-perfect, and performant web applications.",
+    "Full-Stack Developer specializing in React, Node.js, and modern web technologies. Building accessible, pixel-perfect, and performant web applications with passion and precision.",
   keywords: [
     "Full Stack Developer",
     "React Developer",
