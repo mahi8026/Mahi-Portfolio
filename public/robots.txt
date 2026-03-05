@@ -1,0 +1,9 @@
+# SEO: Robots.txt for search engine crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml

@@ -80,7 +80,7 @@ export default function Contact() {
             stagger: 0.15,
             ease: "back.out(1.7)",
           },
-          "-=0.4"
+          "-=0.4",
         )
         // Form animation
         .to(
@@ -92,7 +92,7 @@ export default function Contact() {
             duration: 0.8,
             ease: "back.out(1.7)",
           },
-          "-=0.6"
+          "-=0.6",
         );
 
       // Add hover animations for contact info items
@@ -124,6 +124,28 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
+    // SECURITY FIX: Input validation and sanitization
+    const sanitizedData = {
+      name: formData.name.trim().slice(0, 100),
+      email: formData.email.trim().toLowerCase().slice(0, 100),
+      message: formData.message.trim().slice(0, 1000),
+    };
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(sanitizedData.email)) {
+      setSubmitStatus("error");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validate required fields
+    if (!sanitizedData.name || !sanitizedData.email || !sanitizedData.message) {
+      setSubmitStatus("error");
+      setIsSubmitting(false);
+      return;
+    }
+
     // Animate button on submit
     const submitBtn = e.target.querySelector('button[type="submit"]');
     gsap.to(submitBtn, {
@@ -135,20 +157,29 @@ export default function Contact() {
     });
 
     try {
-      // EmailJS configuration
+      // SECURITY FIX: Check if EmailJS is configured
       const { serviceID, templateID, publicKey } = emailjsConfig;
 
+      if (!serviceID || !templateID || !publicKey) {
+        console.error(
+          "EmailJS is not configured. Please set up environment variables.",
+        );
+        setSubmitStatus("error");
+        setIsSubmitting(false);
+        return;
+      }
+
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-        to_name: "Mahi", // Your name
+        from_name: sanitizedData.name,
+        from_email: sanitizedData.email,
+        message: sanitizedData.message,
+        to_name: "Mahi",
       };
 
       await emailjs.send(serviceID, templateID, templateParams, publicKey);
 
       setSubmitStatus("success");
-      setFormData({ name: "", email: "", message: "" }); // Reset form
+      setFormData({ name: "", email: "", message: "" });
 
       // Success animation
       gsap.to(submitBtn, {
@@ -316,7 +347,7 @@ export default function Contact() {
                   htmlFor="name"
                   className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
                 >
-                  Name
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -325,6 +356,10 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  minLength={2}
+                  maxLength={100}
+                  aria-required="true"
+                  aria-label="Your full name"
                   className="w-full px-4 py-3 glass-card rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all"
                   placeholder="Your Name"
                 />
@@ -335,7 +370,7 @@ export default function Contact() {
                   htmlFor="email"
                   className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
                 >
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
@@ -344,6 +379,10 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  maxLength={100}
+                  pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                  aria-required="true"
+                  aria-label="Your email address"
                   className="w-full px-4 py-3 glass-card rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 transition-all"
                   placeholder="your.email@example.com"
                 />
@@ -354,7 +393,7 @@ export default function Contact() {
                   htmlFor="message"
                   className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
                 >
-                  Message
+                  Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -362,7 +401,11 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
+                  minLength={10}
+                  maxLength={1000}
                   rows={6}
+                  aria-required="true"
+                  aria-label="Your message"
                   className="w-full px-4 py-3 glass-card rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none transition-all"
                   placeholder="Your message..."
                 />
@@ -375,10 +418,10 @@ export default function Contact() {
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
                     : submitStatus === "success"
-                    ? "bg-green-500 hover:bg-green-600"
-                    : submitStatus === "error"
-                    ? "bg-red-500 hover:bg-red-600"
-                    : "bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400"
+                      ? "bg-green-500 hover:bg-green-600"
+                      : submitStatus === "error"
+                        ? "bg-red-500 hover:bg-red-600"
+                        : "bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400"
                 } text-white btn-glow`}
                 onMouseEnter={(e) => {
                   if (!isSubmitting) {
