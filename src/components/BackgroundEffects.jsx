@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { useIsClient } from "@/hooks/useIsClient";
+import { prefersReducedMotion } from "@/utils/performance";
 
-const PARTICLE_COUNT = 30;
+const PARTICLE_COUNT = 20;
 
 const BackgroundEffects = () => {
   const isClient = useIsClient();
@@ -11,13 +12,14 @@ const BackgroundEffects = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || prefersReducedMotion()) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     let rafId;
+    let isVisible = true;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -26,6 +28,17 @@ const BackgroundEffects = () => {
 
     resize();
     window.addEventListener("resize", resize);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !rafId) {
+          rafId = requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(canvas);
 
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * canvas.width,
@@ -38,6 +51,11 @@ const BackgroundEffects = () => {
     }));
 
     const animate = () => {
+      if (!isVisible) {
+        rafId = null;
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = 0; i < particles.length; i++) {
@@ -62,9 +80,9 @@ const BackgroundEffects = () => {
           const dx = p.x - q.x;
           const dy = p.y - q.y;
           const dist = dx * dx + dy * dy;
-          if (dist < 10000) {
+          if (dist < 6400) {
             ctx.save();
-            ctx.globalAlpha = ((100 - Math.sqrt(dist)) / 100) * 0.08;
+            ctx.globalAlpha = ((80 - Math.sqrt(dist)) / 80) * 0.08;
             ctx.strokeStyle = "#14b8a6";
             ctx.lineWidth = 0.5;
             ctx.beginPath();
@@ -84,6 +102,7 @@ const BackgroundEffects = () => {
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
+      observer.disconnect();
     };
   }, [isClient]);
 
@@ -111,10 +130,10 @@ const BackgroundEffects = () => {
       <div className="absolute top-[10%] right-[20%] w-40 h-40 bg-gradient-to-r from-teal-400/6 to-cyan-500/6 rounded-full blur-xl animate-pulse" style={{ animationDelay: "0.5s" }} />
       <div className="absolute bottom-[20%] right-[10%] w-32 h-32 bg-gradient-to-r from-purple-500/5 to-pink-500/5 blur-2xl animate-pulse" style={{ animationDelay: "1.5s" }} />
 
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-teal-400/8 rounded-full blur-[120px] animate-drift" />
-      <div className="absolute bottom-[5%] left-[-15%] w-[700px] h-[700px] bg-cyan-500/6 rounded-full blur-[140px] animate-drift" style={{ animationDelay: "3s" }} />
-      <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px] animate-drift" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-[30%] right-[20%] w-[350px] h-[350px] bg-teal-300/6 rounded-full blur-[90px] animate-drift" style={{ animationDelay: "1.5s" }} />
+      <div className="absolute top-[-10%] right-[-5%] w-[300px] h-[300px] bg-teal-400/8 rounded-full blur-[60px] animate-drift" />
+      <div className="absolute bottom-[5%] left-[-15%] w-[350px] h-[350px] bg-cyan-500/6 rounded-full blur-[70px] animate-drift" style={{ animationDelay: "3s" }} />
+      <div className="absolute top-[40%] left-[30%] w-[200px] h-[200px] bg-purple-500/5 rounded-full blur-[50px] animate-drift" style={{ animationDelay: "2s" }} />
+      <div className="absolute bottom-[30%] right-[20%] w-[180px] h-[180px] bg-teal-300/6 rounded-full blur-[45px] animate-drift" style={{ animationDelay: "1.5s" }} />
     </div>
   );
 };

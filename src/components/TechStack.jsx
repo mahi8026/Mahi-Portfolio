@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion } from "@/utils/performance";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -24,6 +25,8 @@ const TechStack = () => {
   ];
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
       // Set initial states
       gsap.set(containerRef.current, {
@@ -89,20 +92,24 @@ const TechStack = () => {
           "-=0.2"
         );
 
-      // Continuous floating animation for the container
+      // Continuous floating animation for the container (pause when off-screen)
       gsap.to(containerRef.current, {
         y: -5,
         duration: 4,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
-  // Replaced GSAP hover handlers with CSS hover classes below
 
   return (
     <section ref={sectionRef} className="w-full pb-10" id="techstack">

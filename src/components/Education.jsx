@@ -177,26 +177,6 @@ const Education = () => {
   const currentData =
     activeTab === "education" ? educationData : experienceData;
 
-  const handleItemHover = (e) => {
-    if (!isClient) return;
-    gsap.to(e.currentTarget, {
-      scale: 1.02,
-      y: -5,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  };
-
-  const handleItemLeave = (e) => {
-    if (!isClient) return;
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  };
-
   return (
     <section ref={sectionRef} className="py-20" id="education">
       <div className="max-w-6xl mx-auto px-6">
@@ -251,9 +231,8 @@ const Education = () => {
               return (
                 <div
                   key={item.id}
-                  className="relative flex gap-8 group"
-                  onMouseEnter={handleItemHover}
-                  onMouseLeave={handleItemLeave}
+                  className="relative flex gap-8 group transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1"
+
                 >
                   {/* Timeline Icon */}
                   <div className="relative z-10 flex-shrink-0">

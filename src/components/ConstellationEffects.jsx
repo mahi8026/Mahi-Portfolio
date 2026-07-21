@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { prefersReducedMotion } from "@/utils/performance";
 
 const ConstellationEffects = () => {
   const [isClient, setIsClient] = useState(false);
@@ -11,16 +12,16 @@ const ConstellationEffects = () => {
   useEffect(() => {
     setIsClient(true);
 
-    // Generate constellation stars
-    const generatedStars = [...Array(8)].map((_, i) => ({
+    if (prefersReducedMotion()) return;
+
+    const generatedStars = [...Array(4)].map((_, i) => ({
       id: i,
       left: 20 + i * 10,
       top: 15 + Math.sin(i) * 20,
       delay: i * 0.3,
     }));
 
-    // Generate spiral points
-    const generatedSpiralPoints = [...Array(6)].map((_, i) => ({
+    const generatedSpiralPoints = [...Array(3)].map((_, i) => ({
       id: i,
       left: 50 + Math.cos((i * 60 * Math.PI) / 180) * (20 + i * 5),
       top: 50 + Math.sin((i * 60 * Math.PI) / 180) * (20 + i * 5),
@@ -31,8 +32,8 @@ const ConstellationEffects = () => {
     setSpiralPoints(generatedSpiralPoints);
   }, []);
 
-  if (!isClient) {
-    return null; // Don't render anything on server
+  if (!isClient || prefersReducedMotion()) {
+    return null;
   }
 
   return (

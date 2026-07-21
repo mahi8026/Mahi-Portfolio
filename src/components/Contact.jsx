@@ -95,25 +95,7 @@ export default function Contact() {
           "-=0.6",
         );
 
-      // Add hover animations for contact info items
-      const contactItems = contactInfoRef.current.children;
-      Array.from(contactItems).forEach((item) => {
-        item.addEventListener("mouseenter", () => {
-          gsap.to(item, {
-            x: 10,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-
-        item.addEventListener("mouseleave", () => {
-          gsap.to(item, {
-            x: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-      });
+      // (hover animations replaced with CSS transitions below)
     }, sectionRef);
 
     return () => ctx.revert();
@@ -233,7 +215,7 @@ export default function Contact() {
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
           <div ref={contactInfoRef} className="space-y-8">
-            <div className="flex items-center space-x-4 cursor-pointer">
+            <div className="flex items-center space-x-4 cursor-pointer transition-transform duration-300 hover:translate-x-2">
               <div className="glass-card p-3 rounded-lg">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
@@ -247,7 +229,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4 cursor-pointer">
+            <div className="flex items-center space-x-4 cursor-pointer transition-transform duration-300 hover:translate-x-2">
               <div className="glass-card p-3 rounded-lg">
                 <Phone className="w-6 h-6 text-primary" />
               </div>
@@ -261,7 +243,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4 cursor-pointer">
+            <div className="flex items-center space-x-4 cursor-pointer transition-transform duration-300 hover:translate-x-2">
               <div className="glass-card p-3 rounded-lg">
                 <MessageCircle className="w-6 h-6 text-primary" />
               </div>
@@ -275,7 +257,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4 cursor-pointer">
+            <div className="flex items-center space-x-4 cursor-pointer transition-transform duration-300 hover:translate-x-2">
               <div className="glass-card p-3 rounded-lg">
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
@@ -400,21 +382,8 @@ export default function Contact() {
                       : submitStatus === "error"
                         ? "bg-red-500 hover:bg-red-600"
                         : "bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400"
-                } text-white btn-glow`}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting) {
-                    gsap.to(e.currentTarget, {
-                      scale: 1.02,
-                      y: -2,
-                      duration: 0.3,
-                    });
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSubmitting) {
-                    gsap.to(e.currentTarget, { scale: 1, y: 0, duration: 0.3 });
-                  }
-                }}
+                } text-white btn-glow hover:scale-[1.02] hover:-translate-y-0.5 transition-all duration-300`}
+
               >
                 {isSubmitting ? (
                   <>

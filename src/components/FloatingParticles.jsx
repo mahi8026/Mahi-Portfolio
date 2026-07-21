@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { prefersReducedMotion } from "@/utils/performance";
 
 const FloatingParticles = () => {
   const [isClient, setIsClient] = useState(false);
@@ -10,8 +11,9 @@ const FloatingParticles = () => {
   useEffect(() => {
     setIsClient(true);
 
-    // Generate particles with random positions only on client
-    const generatedParticles = [...Array(15)].map((_, i) => ({
+    if (prefersReducedMotion()) return;
+
+    const generatedParticles = [...Array(8)].map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
@@ -23,8 +25,8 @@ const FloatingParticles = () => {
     setParticles(generatedParticles);
   }, []);
 
-  if (!isClient) {
-    return null; // Don't render anything on server
+  if (!isClient || prefersReducedMotion()) {
+    return null;
   }
 
   return (

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Download } from "lucide-react";
+import { prefersReducedMotion } from "@/utils/performance";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -24,6 +25,8 @@ const Hero = () => {
   const glowRef = useRef(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
       // Set initial states
       gsap.set(
@@ -156,7 +159,7 @@ const Hero = () => {
           "-=0.3"
         );
 
-      // Continuous animations
+      // Continuous animations (pause when scrolled off-screen)
       gsap.to(glowRef.current, {
         scale: 1.1,
         opacity: 0.8,
@@ -164,15 +167,26 @@ const Hero = () => {
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
 
-      // Floating animations for cards
       gsap.to(floatingCard1Ref.current, {
         y: -15,
         duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
 
       gsap.to(floatingCard2Ref.current, {
@@ -182,6 +196,12 @@ const Hero = () => {
         yoyo: true,
         ease: "sine.inOut",
         delay: 1,
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
 
       gsap.to(floatingCard3Ref.current, {
@@ -191,25 +211,25 @@ const Hero = () => {
         yoyo: true,
         ease: "sine.inOut",
         delay: 0.5,
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
 
-      // Code card floating
       gsap.to(codeCardRef.current, {
         y: -10,
         duration: 6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-      });
-
-      // Parallax effect on scroll
-      gsap.to(codeCardRef.current, {
-        y: -50,
         scrollTrigger: {
           trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
         },
       });
     }, heroRef);

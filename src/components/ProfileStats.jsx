@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Download, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
+import { prefersReducedMotion } from "@/utils/performance";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +21,8 @@ const ProfileStats = () => {
   const socialIconsRef = useRef(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
       // Set initial states
       gsap.set(leftContentRef.current.children, {
@@ -100,13 +103,19 @@ const ProfileStats = () => {
           "-=0.4"
         );
 
-      // Continuous floating animations
+      // Continuous floating animations (pause when off-screen)
       gsap.to(floatingStat1Ref.current, {
         y: -15,
         duration: 3,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
 
       gsap.to(floatingStat2Ref.current, {
@@ -116,31 +125,17 @@ const ProfileStats = () => {
         yoyo: true,
         ease: "sine.inOut",
         delay: 1,
-      });
-
-      // Profile image hover effect
-      const profileContainer = profileImageRef.current;
-      profileContainer.addEventListener("mouseenter", () => {
-        gsap.to(profileContainer, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-
-      profileContainer.addEventListener("mouseleave", () => {
-        gsap.to(profileContainer, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 120%",
+          end: "bottom -20%",
+          toggleActions: "play none none pause",
+        },
       });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
-  // Replaced GSAP hover handlers with CSS hover classes below
 
   return (
     <section ref={sectionRef} className="py-16" id="experience">

@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useIsClient } from "@/hooks/useIsClient";
 import Image from "next/image";
 import ProjectDetails from "./ProjectDetails";
+import { prefersReducedMotion } from "@/utils/performance";
 import {
   ExternalLink,
   Github,
@@ -198,10 +199,10 @@ const Projects = () => {
   ];
 
   useEffect(() => {
-    if (!isClient) return;
+    if (!isClient || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      // Floating elements animation
+      // Floating elements animation (pause when off-screen)
       floatingElementsRef.current.forEach((el, index) => {
         if (el) {
           gsap.to(el, {
@@ -213,6 +214,12 @@ const Projects = () => {
             yoyo: true,
             ease: "sine.inOut",
             delay: index * 0.2,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 120%",
+              end: "bottom -20%",
+              toggleActions: "play none none pause",
+            },
           });
         }
       });
@@ -271,22 +278,32 @@ const Projects = () => {
             }
           );
 
-          // Magnetic hover effect
+          // Magnetic hover effect (RAF-batched)
+          let rafPending = false;
+          let lastDelta = { x: 0, y: 0 };
+
           const handleMouseMove = (e) => {
             const rect = card.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            const deltaX = (e.clientX - centerX) * 0.1;
-            const deltaY = (e.clientY - centerY) * 0.1;
-
-            gsap.to(card, {
-              x: deltaX,
-              y: deltaY,
-              rotationY: deltaX * 0.1,
-              rotationX: -deltaY * 0.1,
-              duration: 0.3,
-              ease: "power2.out",
-            });
+            lastDelta = {
+              x: (e.clientX - centerX) * 0.1,
+              y: (e.clientY - centerY) * 0.1,
+            };
+            if (!rafPending) {
+              rafPending = true;
+              requestAnimationFrame(() => {
+                gsap.to(card, {
+                  x: lastDelta.x,
+                  y: lastDelta.y,
+                  rotationY: lastDelta.x * 0.1,
+                  rotationX: -lastDelta.y * 0.1,
+                  duration: 0.3,
+                  ease: "power2.out",
+                });
+                rafPending = false;
+              });
+            }
           };
 
           const handleMouseLeave = () => {
