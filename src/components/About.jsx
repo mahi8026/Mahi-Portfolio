@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Calendar, Code2, Coffee, Users } from "lucide-react";
 
 const About = () => {
@@ -61,12 +62,15 @@ const About = () => {
             className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
             whileHover={{ y: -5, scale: 1.02 }}
           >
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden relative"
-              style={{
-                backgroundImage: `url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop")`,
-              }}
-            >
+            <div className="w-full aspect-video rounded-lg overflow-hidden relative">
+              <Image
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+                alt="The Journey"
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors"></div>
             </div>
             <div>
@@ -89,12 +93,15 @@ const About = () => {
             className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
             whileHover={{ y: -5, scale: 1.02 }}
           >
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden relative"
-              style={{
-                backgroundImage: `url("https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop")`,
-              }}
-            >
+            <div className="w-full aspect-video rounded-lg overflow-hidden relative">
+              <Image
+                src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop"
+                alt="The Work"
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors"></div>
             </div>
             <div>
@@ -116,12 +123,15 @@ const About = () => {
             className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
             whileHover={{ y: -5, scale: 1.02 }}
           >
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg overflow-hidden relative"
-              style={{
-                backgroundImage: `url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop")`,
-              }}
-            >
+            <div className="w-full aspect-video rounded-lg overflow-hidden relative">
+              <Image
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+                alt="The Person"
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors"></div>
             </div>
             <div>

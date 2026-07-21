@@ -13,6 +13,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { useIsClient } from "@/hooks/useIsClient";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -22,15 +23,10 @@ if (typeof window !== "undefined") {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const navRef = useRef(null);
   const logoRef = useRef(null);
   const navItemsRef = useRef(null);
-
-  // Fix hydration error by ensuring client-side only rendering
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const navItems = [
     { id: "home", label: "Home", icon: Home },
@@ -149,26 +145,6 @@ const Navbar = () => {
     }
   };
 
-  const handleItemHover = (e) => {
-    if (!isClient) return;
-    gsap.to(e.currentTarget, {
-      y: -3,
-      scale: 1.05,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleItemLeave = (e) => {
-    if (!isClient) return;
-    gsap.to(e.currentTarget, {
-      y: 0,
-      scale: 1,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
   return (
     <header
       ref={navRef}
@@ -266,20 +242,16 @@ const Navbar = () => {
                   key={item.id}
                   data-nav={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  onMouseEnter={handleItemHover}
-                  onMouseLeave={handleItemLeave}
-                  className={`relative flex items-center gap-1 px-2 py-1.5 rounded-xl transition-all duration-300 overflow-hidden group ${
+                  className={`relative flex items-center gap-1 px-2 py-1.5 rounded-xl transition-all duration-200 overflow-hidden group hover:-translate-y-0.5 hover:scale-105 ${
                     isActive
                       ? "bg-gradient-to-r from-teal-500/80 to-cyan-500/80 text-white shadow-lg shadow-teal-500/30 border border-white/20"
                       : "text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10"
                   }`}
                 >
-                  {/* Button background glass effect */}
                   {!isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                   )}
 
-                  {/* Active state glass reflection */}
                   {isActive && (
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent"></div>
                   )}
@@ -304,21 +276,17 @@ const Navbar = () => {
                   key={item.id}
                   data-nav={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  onMouseEnter={handleItemHover}
-                  onMouseLeave={handleItemLeave}
                   title={item.label}
-                  className={`relative flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-300 overflow-hidden group ${
+                  className={`relative flex items-center justify-center w-9 h-9 rounded-xl transition-all duration-200 overflow-hidden group hover:-translate-y-0.5 hover:scale-105 ${
                     isActive
                       ? "bg-gradient-to-r from-teal-500/80 to-cyan-500/80 text-white shadow-lg shadow-teal-500/30 border border-white/20"
                       : "text-slate-200 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10"
                   }`}
                 >
-                  {/* Button background glass effect */}
                   {!isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                   )}
 
-                  {/* Active state glass reflection */}
                   {isActive && (
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent"></div>
                   )}

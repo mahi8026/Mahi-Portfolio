@@ -217,22 +217,6 @@ const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleButtonHover = (e, scale = 1.05) => {
-    gsap.to(e.currentTarget, {
-      scale,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleButtonLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
   return (
     <section
       ref={heroRef}
@@ -281,16 +265,12 @@ const Hero = () => {
         {/* CTAs */}
         <div ref={buttonsRef} className="flex flex-wrap gap-4 pt-2">
           <button
-            className="flex items-center justify-center h-12 px-8 rounded-xl bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-xl shadow-primary/20 transition-all transform"
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
+            className="flex items-center justify-center h-12 px-8 rounded-xl bg-primary hover:bg-primary-dark text-white text-base font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-200"
           >
             View Projects
           </button>
           <button
-            className="flex items-center justify-center h-12 px-8 rounded-xl bg-transparent border border-white/20 hover:bg-white/5 text-white text-base font-bold transition-all hover:border-white/40 group"
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
+            className="flex items-center justify-center h-12 px-8 rounded-xl bg-transparent border border-white/20 hover:bg-white/5 text-white text-base font-bold transition-all hover:border-white/40 hover:scale-105 duration-200 group"
           >
             <Download
               className="mr-2 group-hover:translate-y-0.5 transition-transform"

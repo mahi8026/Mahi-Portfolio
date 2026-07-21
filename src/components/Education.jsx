@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsClient } from "@/hooks/useIsClient";
 import {
   GraduationCap,
   Calendar,
   MapPin,
   Award,
   BookOpen,
-  Star,
   ChevronRight,
 } from "lucide-react";
 
@@ -19,15 +19,11 @@ if (typeof window !== "undefined") {
 
 const Education = () => {
   const [activeTab, setActiveTab] = useState("education");
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const timelineRef = useRef(null);
   const tabsRef = useRef(null);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     if (!isClient) return;

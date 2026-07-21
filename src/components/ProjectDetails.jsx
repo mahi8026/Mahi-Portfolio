@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import { useIsClient } from "@/hooks/useIsClient";
 import {
   X,
   ExternalLink,
@@ -22,13 +23,9 @@ if (typeof window !== "undefined") {
 }
 
 const ProjectDetails = ({ project, isOpen, onClose }) => {
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const modalRef = useRef(null);
   const contentRef = useRef(null);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     if (!isClient) return;
@@ -116,11 +113,14 @@ const ProjectDetails = ({ project, isOpen, onClose }) => {
         {/* Content */}
         <div className="p-6 space-y-8">
           {/* Project Image */}
-          <div className="relative rounded-2xl overflow-hidden">
-            <img
+          <div className="relative rounded-2xl overflow-hidden h-64">
+            <Image
               src={project.image}
               alt={project.title}
-              className="w-full h-64 object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 800px"
+              className="object-cover"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           </div>

@@ -1,9 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
-// SEO OPTIMIZATION: Enhanced metadata with proper Open Graph and Twitter cards
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mahi.dev"),
   title: {
@@ -66,18 +69,16 @@ export const metadata = {
     images: ["/images/og-image.png"],
   },
   verification: {
-    // Add your verification codes here
     google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
   },
 };
 
-// BUG FIX: Removed duplicate title tag (already in metadata)
-// ACCESSIBILITY: Added proper lang attribute and viewport meta
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body
         className={`${inter.className} bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased`}
         suppressHydrationWarning

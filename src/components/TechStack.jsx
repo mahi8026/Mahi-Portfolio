@@ -102,34 +102,7 @@ const TechStack = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleChipHover = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1.1,
-      y: -8,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-
-    // Add a subtle glow effect
-    gsap.to(e.currentTarget, {
-      boxShadow: "0 10px 25px rgba(59, 43, 238, 0.3)",
-      duration: 0.3,
-    });
-  };
-
-  const handleChipLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-
-    gsap.to(e.currentTarget, {
-      boxShadow: "0 0 0 rgba(59, 43, 238, 0)",
-      duration: 0.3,
-    });
-  };
+  // Replaced GSAP hover handlers with CSS hover classes below
 
   return (
     <section ref={sectionRef} className="w-full pb-10" id="techstack">
@@ -148,12 +121,10 @@ const TechStack = () => {
           className="flex flex-wrap justify-center gap-4 sm:gap-6"
         >
           {technologies.map((tech, index) => (
-            <div
-              key={tech.name}
-              className="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition-colors pl-3 pr-4 cursor-pointer"
-              onMouseEnter={handleChipHover}
-              onMouseLeave={handleChipLeave}
-            >
+              <div
+                key={tech.name}
+                className="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 hover:scale-110 hover:-translate-y-2 transition-all duration-200 pl-3 pr-4 cursor-pointer hover:shadow-lg hover:shadow-teal-500/20"
+              >
               <span className="text-white text-[20px]">{tech.icon}</span>
               <p className="text-white text-sm font-medium">{tech.name}</p>
             </div>

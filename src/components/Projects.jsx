@@ -3,22 +3,17 @@
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsClient } from "@/hooks/useIsClient";
+import Image from "next/image";
 import ProjectDetails from "./ProjectDetails";
 import {
   ExternalLink,
   Github,
   ArrowRight,
-  Layers,
-  CheckCircle,
   Rocket,
-  Code,
-  Zap,
   Star,
   Eye,
-  Heart,
   Award,
-  TrendingUp,
-  Sparkles,
 } from "lucide-react";
 
 // Register GSAP plugins
@@ -29,16 +24,12 @@ if (typeof window !== "undefined") {
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
-  const [viewMode, setViewMode] = useState("grid"); // grid, carousel, masonry
-  const [isClient, setIsClient] = useState(false);
+  const [viewMode, setViewMode] = useState("grid");
+  const isClient = useIsClient();
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const projectsGridRef = useRef(null);
   const floatingElementsRef = useRef([]);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const projects = [
     {
@@ -400,9 +391,13 @@ const Projects = () => {
               project.featured ? "h-64" : "h-48"
             }`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center transform group-hover:scale-110 transition-transform duration-700"
-              style={{ backgroundImage: `url('${project.image}')` }}
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              loading="lazy"
             />
 
             {/* Animated overlay */}
@@ -612,78 +607,14 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Project detail modal would go here */}
       {selectedProject && (
-        <ProjectDetailModal
+        <ProjectDetails
           project={selectedProject}
+          isOpen={!!selectedProject}
           onClose={() => setSelectedProject(null)}
         />
       )}
     </section>
-  );
-};
-
-// Enhanced Project Detail Modal Component
-const ProjectDetailModal = ({ project, onClose }) => {
-  const modalRef = useRef(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return;
-
-    gsap.fromTo(
-      modalRef.current,
-      { opacity: 0, scale: 0.8, y: 50 },
-      { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }
-    );
-  }, [isClient]);
-
-  const handleClose = () => {
-    if (!isClient) return;
-
-    gsap.to(modalRef.current, {
-      opacity: 0,
-      scale: 0.8,
-      y: 50,
-      duration: 0.3,
-      ease: "power2.in",
-      onComplete: onClose,
-    });
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div
-        ref={modalRef}
-        className="bg-slate-900/95 backdrop-blur-xl rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-slate-700/50"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal content would be implemented here with enhanced design */}
-        <div className="p-8">
-          <div className="flex justify-between items-start mb-6">
-            <h2 className="text-3xl font-bold text-white">{project.title}</h2>
-            <button
-              onClick={handleClose}
-              className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-            >
-              ✕
-            </button>
-          </div>
-          {/* Add more modal content here */}
-        </div>
-      </div>
-
-      {/* Project Details Modal */}
-      <ProjectDetails
-        project={selectedProject}
-        isOpen={!!selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
-    </div>
   );
 };
 

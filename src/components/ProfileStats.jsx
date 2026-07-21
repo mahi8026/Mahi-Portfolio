@@ -140,41 +140,7 @@ const ProfileStats = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSocialHover = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1.2,
-      y: -5,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleSocialLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleStatHover = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1.05,
-      y: -10,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleStatLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
+  // Replaced GSAP hover handlers with CSS hover classes below
 
   return (
     <section ref={sectionRef} className="py-16" id="experience">
@@ -199,13 +165,7 @@ const ProfileStats = () => {
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4">
               <button
-                className="flex items-center justify-center gap-2 h-12 px-6 rounded-lg bg-primary hover:bg-primary-dark text-white font-bold btn-glow transition-all"
-                onMouseEnter={(e) =>
-                  gsap.to(e.currentTarget, { scale: 1.05, duration: 0.3 })
-                }
-                onMouseLeave={(e) =>
-                  gsap.to(e.currentTarget, { scale: 1, duration: 0.3 })
-                }
+                className="flex items-center justify-center gap-2 h-12 px-6 rounded-lg bg-primary hover:bg-primary-dark text-white font-bold btn-glow hover:scale-105 transition-all duration-200"
               >
                 <Download size={18} />
                 Download Resume
@@ -214,26 +174,20 @@ const ProfileStats = () => {
               {/* Social Icons */}
               <div ref={socialIconsRef} className="flex gap-3">
                 <a
-                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary transition-all duration-300"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                   href="https://github.com/mahi8026"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
                 >
                   <Github size={20} />
                 </a>
                 <a
-                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary transition-all duration-300"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                   href="https://www.linkedin.com/in/mahimrahman-dev/"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
                 >
                   <Linkedin size={20} />
                 </a>
                 <a
-                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary transition-all duration-300"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg glass-card hover:bg-primary/10 text-slate-600 dark:text-slate-300 hover:text-primary hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                   href="https://mail.google.com/mail/u/0/#inbox"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
                 >
                   <Mail size={20} />
                 </a>
@@ -264,6 +218,7 @@ const ProfileStats = () => {
                   src="/images/Gemini_Generated_Image_hk4flnhk4flnhk4f.png"
                   alt="Mahi - Full Stack Developer"
                   fill
+                  sizes="(max-width: 768px) 100vw, 400px"
                   className="object-cover transition-transform duration-700 hover:scale-105"
                   priority
                 />
@@ -321,9 +276,7 @@ const ProfileStats = () => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="glass-card p-6 rounded-xl text-center cursor-pointer"
-              onMouseEnter={handleStatHover}
-              onMouseLeave={handleStatLeave}
+              className="glass-card p-6 rounded-xl text-center cursor-pointer hover:scale-105 hover:-translate-y-2 transition-all duration-200"
             >
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                 {stat.number}

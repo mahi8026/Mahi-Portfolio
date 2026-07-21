@@ -1,16 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { useIsClient } from "@/hooks/useIsClient";
 
 const MouseFollower = () => {
   const followerRef = useRef(null);
   const trailRefs = useRef([]);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const isClient = useIsClient();
 
   useEffect(() => {
     if (!isClient) return;

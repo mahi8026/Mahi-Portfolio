@@ -216,23 +216,7 @@ export default function Contact() {
     });
   };
 
-  const handleSocialHover = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1.2,
-      y: -5,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
-
-  const handleSocialLeave = (e) => {
-    gsap.to(e.currentTarget, {
-      scale: 1,
-      y: 0,
-      duration: 0.3,
-      ease: "back.out(1.7)",
-    });
-  };
+ 
 
   return (
     <section ref={sectionRef} id="contact" className="py-20">
@@ -313,27 +297,21 @@ export default function Contact() {
               <div className="flex space-x-4">
                 <a
                   href="https://github.com/mahi8026"
-                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
+                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                 >
-                  <Github className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors" />
+                  <Github className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary" />
                 </a>
                 <a
                   href="https://linkedin.com/in/mahi-dev"
-                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
+                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                 >
-                  <Linkedin className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors" />
+                  <Linkedin className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary" />
                 </a>
                 <a
                   href="https://twitter.com/mahi_dev"
-                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group"
-                  onMouseEnter={handleSocialHover}
-                  onMouseLeave={handleSocialLeave}
+                  className="glass-card p-3 rounded-lg hover:bg-primary/10 transition-colors group hover:scale-110 hover:-translate-y-1 transition-all duration-200"
                 >
-                  <Twitter className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors" />
+                  <Twitter className="w-6 h-6 text-slate-700 dark:text-slate-300 group-hover:text-primary" />
                 </a>
               </div>
             </div>
