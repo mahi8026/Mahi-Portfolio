@@ -18,10 +18,6 @@ import {
   Lightbulb,
 } from "lucide-react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const ProjectDetails = ({ project, isOpen, onClose }) => {
   const isClient = useIsClient();
   const modalRef = useRef(null);
