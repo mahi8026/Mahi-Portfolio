@@ -58,10 +58,7 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Journey Card */}
-          <motion.div
-            className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
-            whileHover={{ y: -5, scale: 1.02 }}
-          >
+          <div className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-200 shadow-sm">
             <div className="w-full aspect-video rounded-lg overflow-hidden relative">
               <Image
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
@@ -86,13 +83,10 @@ const About = () => {
                 learning.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Work Card */}
-          <motion.div
-            className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
-            whileHover={{ y: -5, scale: 1.02 }}
-          >
+          <div className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-200 shadow-sm">
             <div className="w-full aspect-video rounded-lg overflow-hidden relative">
               <Image
                 src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop"
@@ -116,13 +110,10 @@ const About = () => {
                 front-end interfaces. Clean code is my philosophy.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Person Card */}
-          <motion.div
-            className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 transition-all shadow-sm"
-            whileHover={{ y: -5, scale: 1.02 }}
-          >
+          <div className="group flex flex-col gap-3 rounded-xl glass-card p-4 hover:bg-white/10 dark:hover:bg-white/5 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-200 shadow-sm">
             <div className="w-full aspect-video rounded-lg overflow-hidden relative">
               <Image
                 src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
@@ -146,7 +137,7 @@ const About = () => {
                 brewing the perfect cup of coffee.
               </p>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Stats Grid */}
@@ -162,8 +153,7 @@ const About = () => {
             return (
               <motion.div
                 key={stat.label}
-                className="flex flex-col gap-2 rounded-xl p-6 glass-card hover:bg-white/10 dark:hover:bg-white/5 transition-all group shadow-sm"
-                whileHover={{ y: -5, scale: 1.02 }}
+                className="flex flex-col gap-2 rounded-xl p-6 glass-card hover:bg-white/10 dark:hover:bg-white/5 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-200 group shadow-sm"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -204,12 +194,11 @@ const About = () => {
             {traits.map((trait, index) => (
               <motion.div
                 key={trait}
-                className="group flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full glass-card pl-4 pr-5 hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default"
+                className="group flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full glass-card pl-4 pr-5 hover:bg-primary/10 hover:border-primary/50 hover:scale-105 hover:-translate-y-0.5 transition-all duration-200 cursor-default"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 + 0.8 }}
-                whileHover={{ scale: 1.05, y: -2 }}
               >
                 <p className="text-slate-700 dark:text-slate-200 text-sm font-medium group-hover:text-primary transition-colors">
                   {trait}

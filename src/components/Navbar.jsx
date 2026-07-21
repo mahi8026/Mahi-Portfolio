@@ -151,7 +151,7 @@ const Navbar = () => {
       className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4"
     >
       {/* Enhanced Glassmorphism Navbar */}
-      <nav className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl px-4 py-2 shadow-2xl shadow-black/40 relative overflow-hidden">
+      <nav className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl px-4 py-2 shadow-2xl shadow-black/40 relative overflow-hidden">
         {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 via-cyan-500/5 to-purple-500/10 opacity-50"></div>
 
@@ -167,7 +167,7 @@ const Navbar = () => {
           >
             <div className="relative">
               {/* Logo background with enhanced glass effect */}
-              <div className="w-12 h-12 bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-900/60 rounded-2xl flex items-center justify-center shadow-2xl shadow-teal-500/30 relative overflow-hidden group-hover:shadow-teal-500/50 transition-all duration-300 backdrop-blur-xl border border-teal-400/20">
+              <div className="w-12 h-12 bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-900/60 rounded-2xl flex items-center justify-center shadow-2xl shadow-teal-500/30 relative overflow-hidden group-hover:shadow-teal-500/50 transition-all duration-300 border border-teal-400/20">
                 {/* Inner glass reflection */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent rounded-2xl"></div>
 
@@ -231,7 +231,7 @@ const Navbar = () => {
           {/* Enhanced Desktop Navigation */}
           <div
             ref={navItemsRef}
-            className="hidden lg:flex items-center gap-0 bg-white/5 backdrop-blur-xl rounded-2xl p-1 border border-white/10"
+            className="hidden lg:flex items-center gap-0 bg-white/5 rounded-2xl p-1 border border-white/10"
           >
             {navItems.map((item) => {
               const IconComponent = item.icon;
@@ -266,7 +266,7 @@ const Navbar = () => {
           </div>
 
           {/* Medium Screen Navigation (Icons Only) */}
-          <div className="hidden md:flex lg:hidden items-center gap-0 bg-white/5 backdrop-blur-xl rounded-2xl p-1 border border-white/10">
+          <div className="hidden md:flex lg:hidden items-center gap-0 bg-white/5 rounded-2xl p-1 border border-white/10">
             {navItems.map((item) => {
               const IconComponent = item.icon;
               const isActive = isClient && activeSection === item.id;

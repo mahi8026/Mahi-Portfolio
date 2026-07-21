@@ -95,12 +95,11 @@ const Skills = () => {
             return (
               <motion.div
                 key={category.title}
-                className="group relative flex flex-col gap-6 rounded-xl border border-white/10 bg-white/5 p-6 md:p-8 hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5"
+                className="group relative flex flex-col gap-6 rounded-xl border border-white/10 bg-white/5 p-6 md:p-8 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-primary/5"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: categoryIndex * 0.1 + 0.2 }}
-                whileHover={{ y: -5 }}
               >
                 {/* Header */}
                 <div className="flex items-center gap-4 pb-2 border-b border-white/10">
@@ -164,14 +163,13 @@ const Skills = () => {
                     {category.databases.map((db, dbIndex) => (
                       <motion.span
                         key={db}
-                        className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium hover:bg-violet-100/10 hover:text-violet-300 hover:border-violet-500/30 transition-colors cursor-default"
+                        className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium hover:bg-violet-100/10 hover:text-violet-300 hover:border-violet-500/30 hover:scale-105 transition-all duration-200 cursor-default"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{
                           delay: categoryIndex * 0.1 + dbIndex * 0.05 + 0.4,
                         }}
-                        whileHover={{ scale: 1.05 }}
                       >
                         {db}
                       </motion.span>
@@ -185,14 +183,13 @@ const Skills = () => {
                     {category.tools.map((tool, toolIndex) => (
                       <motion.span
                         key={tool}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium hover:bg-orange-100/10 hover:text-orange-300 hover:border-orange-500/30 transition-colors cursor-default"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium hover:bg-orange-100/10 hover:text-orange-300 hover:border-orange-500/30 hover:scale-105 transition-all duration-200 cursor-default"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{
                           delay: categoryIndex * 0.1 + toolIndex * 0.05 + 0.4,
                         }}
-                        whileHover={{ scale: 1.05 }}
                       >
                         {tool}
                       </motion.span>
@@ -221,8 +218,7 @@ const Skills = () => {
               opportunities.
             </p>
             <motion.button
-              className="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary hover:bg-primary-dark transition-colors text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/20"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary hover:bg-primary-dark hover:scale-105 hover:-translate-y-0.5 transition-all duration-200 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/20"
               whileTap={{ scale: 0.95 }}
             >
               Contact Me
