@@ -12,7 +12,7 @@
 | Dev | `npm run dev` (runs `next dev`) |
 | Build | `npm run build` (`next build`) |
 | Lint | `npm run lint` (`next lint`) |
-| Deploy | `deploy.bat` (or `vercel --prod` after build) |
+| Deploy | `vercel --prod` |
 
 No test, typecheck, format, or codegen commands exist.
 
